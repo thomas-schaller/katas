@@ -3,6 +3,8 @@ package bank;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static bank.Account.COLUMN_SEPARATOR;
+
 public class BankOperation {
     int amount=0;
     LocalDate dateOperation;
@@ -29,7 +31,7 @@ public class BankOperation {
         {
             operationType ="";
         }
-        return dateOperation.format(DATE_FORMATER)+"\t"+operationType+amount+"\t"+amount;
+        return dateOperation.format(DATE_FORMATER)+COLUMN_SEPARATOR+operationType+amount+COLUMN_SEPARATOR+amount;
 
     }
 }

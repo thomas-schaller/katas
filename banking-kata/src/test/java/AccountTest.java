@@ -6,6 +6,9 @@ import org.mockito.Mockito;
 
 import java.time.LocalDate;
 
+import static bank.Account.COLUMN_SEPARATOR;
+import static bank.Account.HEADER_STATEMENT;
+
 
 public class AccountTest {
 
@@ -31,26 +34,26 @@ public class AccountTest {
     public void printDepositStatement()
     {
         LocalDate date = LocalDate.of(2024, 1, 1);
+        int depositAmount= 200;
         try(MockedStatic<LocalDate> mockStatic = Mockito.mockStatic(LocalDate.class)) {
             mockStatic.when(LocalDate::now).thenReturn(date);
             Account a = new Account();
-            a.deposit(200);
+            a.deposit(depositAmount);
 
-            Assert.assertEquals("Date\tAmount\tBalance\n01.01.2024\t+200\t200", a.printStatement());
+            Assert.assertEquals(HEADER_STATEMENT+"01.01.2024"+COLUMN_SEPARATOR+"+"+depositAmount+COLUMN_SEPARATOR+depositAmount, a.printStatement());
         }
     }
 
     @Test
     public void printWithdrawStatement()
     {
-
+        int withdrawAmount= 100;
         LocalDate date = LocalDate.of(2024, 10, 1);
         try(MockedStatic<LocalDate> mockStatic = Mockito.mockStatic(LocalDate.class)) {
             mockStatic.when(LocalDate::now).thenReturn(date);
-
             Account a = new Account();
-            a.withdraw(100);
-            Assert.assertEquals("Date\tAmount\tBalance\n10.01.2024\t-100\t-100", a.printStatement());
+            a.withdraw(withdrawAmount);
+            Assert.assertEquals(HEADER_STATEMENT+"10.01.2024"+COLUMN_SEPARATOR+"-"+withdrawAmount+COLUMN_SEPARATOR+"-"+withdrawAmount, a.printStatement());
         }
     }
 }

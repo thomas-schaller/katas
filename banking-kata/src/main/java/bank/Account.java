@@ -1,15 +1,13 @@
 package bank;
 
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Account {
 
-    private static final String HEADER_STATEMENT = "Date\tAmount\tBalance\n";
+    public static final String COLUMN_SEPARATOR="\t";
+    public static final String HEADER_STATEMENT = "Date"+COLUMN_SEPARATOR+"Amount"+COLUMN_SEPARATOR+"Balance\n";
     List<BankOperation> operationList = new ArrayList<>();
     int balance=0;
 
