@@ -20,6 +20,9 @@ public class Account {
     }
 
     public void withdraw(int withdrawAmount) {
+        if (balance - withdrawAmount < 0) {
+            throw new IllegalArgumentException("Impossible to withdraw more than you have: "+ withdrawAmount+ " is more than "+ balance);
+        }
         addBankOperation(-withdrawAmount);
     }
 

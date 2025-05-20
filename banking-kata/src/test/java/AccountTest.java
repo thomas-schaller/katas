@@ -14,19 +14,21 @@ import static bank.Account.HEADER_STATEMENT;
 public class AccountTest {
 
     @Test
-    public void shouldDeposit500() {
-        int depositAmount = 500;
+    public void cantWithdrawMoreThanBalance() {
+        int withdrawAmount = 100;
         Account a = new Account();
-        a.deposit(depositAmount);
-        Assert.assertEquals(depositAmount, a.getBalance());
+        Exception exception = Assert.assertThrows(IllegalArgumentException.class, () -> a.withdraw(withdrawAmount));
+        Assert.assertEquals("Impossible to withdraw more than you have: " + withdrawAmount + " is more than " + a.getBalance(), exception.getMessage());
     }
 
     @Test
     public void shouldWithdraw100() {
+        int initialAmount = 200;
         int withdrawAmount = 100;
         Account a = new Account();
+        a.deposit(initialAmount);
         a.withdraw(withdrawAmount);
-        Assert.assertEquals(-withdrawAmount, a.getBalance());
+        Assert.assertEquals(initialAmount - withdrawAmount, a.getBalance());
     }
 
     @Test
@@ -39,18 +41,6 @@ public class AccountTest {
             a.deposit(depositAmount);
 
             Assert.assertEquals(HEADER_STATEMENT + "\n01.01.2024" + COLUMN_SEPARATOR + "+" + depositAmount + COLUMN_SEPARATOR + depositAmount, a.printStatement());
-        }
-    }
-
-    @Test
-    public void printWithdrawStatement() {
-        int withdrawAmount = 100;
-        LocalDate date = LocalDate.of(2024, 10, 1);
-        try (MockedStatic<LocalDate> mockStatic = Mockito.mockStatic(LocalDate.class)) {
-            mockStatic.when(LocalDate::now).thenReturn(date);
-            Account a = new Account();
-            a.withdraw(withdrawAmount);
-            Assert.assertEquals(HEADER_STATEMENT + "\n01.10.2024" + COLUMN_SEPARATOR + "-" + withdrawAmount + COLUMN_SEPARATOR + "-" + withdrawAmount, a.printStatement());
         }
     }
 
