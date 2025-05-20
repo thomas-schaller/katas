@@ -22,5 +22,11 @@ public class AccountTest {
         Assert.assertEquals(-withdrawAmount,a.getBalance());
     }
 
-
+    @Test
+    public void printDepositStatement()
+    {
+        Account a = new Account();
+        a.withdraw(200);
+        Assert.assertEquals("Date\tAmount\tBalance\n12.20.2025\t+200\t200",a.printStatement());
+    }
 }
