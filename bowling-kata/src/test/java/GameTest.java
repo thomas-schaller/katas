@@ -8,8 +8,12 @@ public class GameTest {
    public void scoreOneRollWithoutBonus()
    {
       Game g = new Game();
-      g.roll(3);
-      g.roll(4);
-      Assert.assertEquals(3+4,g.score());
+      int firstRoll =3;
+      int secondRoll=4;
+      g.roll(firstRoll);
+      g.roll(secondRoll);
+      Assert.assertEquals(firstRoll+secondRoll,g.score());
    }
+
+
    }
