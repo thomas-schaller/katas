@@ -12,4 +12,13 @@ public class AccountTest {
         a.deposit(depositAmount);
         Assert.assertEquals(depositAmount,a.getBalance());
     }
+
+    @Test
+    public void shouldWithdraw100()
+    {
+        int withdrawAmount= 100;
+        Account a = new Account();
+        a.withdraw(withdrawAmount);
+        Assert.assertEquals(-100,a.getBalance());
+    }
 }
