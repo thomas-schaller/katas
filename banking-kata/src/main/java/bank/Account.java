@@ -16,6 +16,6 @@ int balance=0;
     }
 
     public String printStatement() {
-        return "Date\tAmount\tBalance\n12.20.2025\t+200\t200";
+        return "Date\tAmount\tBalance\n12.20.2025\t+"+balance+"\t"+balance;
     }
 }
