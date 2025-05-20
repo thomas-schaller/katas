@@ -7,13 +7,13 @@ import java.util.List;
 public class Account {
 
     public static final String COLUMN_SEPARATOR="\t";
-    public static final String HEADER_STATEMENT = "Date"+COLUMN_SEPARATOR+"Amount"+COLUMN_SEPARATOR+"Balance\n";
+    public static final String HEADER_STATEMENT = "Date"+COLUMN_SEPARATOR+"Amount"+COLUMN_SEPARATOR+"Balance";
     List<BankOperation> operationList = new ArrayList<>();
     int balance=0;
 
     public void deposit(int depositAmount) {
         balance += depositAmount;
-        operationList.add(new BankOperation(depositAmount));
+        operationList.add(new BankOperation(depositAmount,balance));
 
     }
 
@@ -23,12 +23,15 @@ public class Account {
 
     public void withdraw(int withdrawAmount) {
         balance -= withdrawAmount;
-        operationList.add(new BankOperation(-withdrawAmount));
+        operationList.add(new BankOperation(-withdrawAmount,balance));
     }
 
     public String printStatement() {
         StringBuilder statement = new StringBuilder(HEADER_STATEMENT);
-        operationList.forEach(operation-> statement.append(operation.printStatement()));
+        operationList.forEach(operation-> {
+            statement.append("\n");
+            statement.append(operation.printStatement());
+        });
         return statement.toString();
     }
 }

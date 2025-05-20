@@ -7,12 +7,14 @@ import static bank.Account.COLUMN_SEPARATOR;
 
 public class BankOperation {
     int amount=0;
+    int finalBalance=0;
     LocalDate dateOperation;
-    private static final DateTimeFormatter DATE_FORMATER =  DateTimeFormatter.ofPattern("MM.dd.yyyy");
+    private static final DateTimeFormatter DATE_FORMATER =  DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    BankOperation(int amount)
+    BankOperation(int amount,int finalBalance)
     {
         this.amount=amount;
+        this.finalBalance=finalBalance;
         dateOperation = LocalDate.now();
     }
 
@@ -31,7 +33,7 @@ public class BankOperation {
         {
             operationType ="";
         }
-        return dateOperation.format(DATE_FORMATER)+COLUMN_SEPARATOR+operationType+amount+COLUMN_SEPARATOR+amount;
+        return dateOperation.format(DATE_FORMATER)+COLUMN_SEPARATOR+operationType+amount+COLUMN_SEPARATOR+finalBalance;
 
     }
 }
