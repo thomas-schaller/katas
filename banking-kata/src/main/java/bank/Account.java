@@ -12,6 +12,6 @@ int balance=0;
     }
 
     public void withdraw(int withdrawAmount) {
-        balance=-100;
+        balance -= withdrawAmount;
     }
 }

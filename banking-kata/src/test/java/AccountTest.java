@@ -19,6 +19,8 @@ public class AccountTest {
         int withdrawAmount= 100;
         Account a = new Account();
         a.withdraw(withdrawAmount);
-        Assert.assertEquals(-100,a.getBalance());
+        Assert.assertEquals(-withdrawAmount,a.getBalance());
     }
+
+
 }
