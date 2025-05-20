@@ -5,31 +5,37 @@ import java.util.List;
 
 public class Game {
     List<Frame> frames = new ArrayList<>();
+    List<Frame> bonusOnce = new ArrayList<>();
+    List<Frame> bonusTwice = new ArrayList<>();
 
     public Game() {
         frames.add(new Frame());
     }
 
     public void roll(int i) {
-        Frame previous = frames.getLast();
-        if (previous.isFinish()) {
-            if (previous.isSpare() || previous.isStrike()) {
-                previous.addBonus(i);
-                if (previous.isStrike() && frames.size()>1 && frames.get(frames.size()-2).isStrike())
-                {
-                    frames.get(frames.size()-2).addBonus(i);
-                }
-            }
-                frames.add(new Frame());
+        managePreviousBonus(i);
+        if (frames.getLast().isFinish()) {
+            frames.add(new Frame());
         }
-        else if (frames.size()>1 && frames.get(frames.size()-2).isStrike())
-        {
-            previous = frames.get(frames.size()-2);
-            previous.addBonus(i);
-        }
-
         Frame current = frames.getLast();
         current.roll(i);
+        if (current.isSpare()) {
+            bonusOnce.add(current);
+        }
+        if (current.isStrike()) {
+            bonusTwice.add(current);
+        }
+    }
+
+    private void managePreviousBonus(int nbPin) {
+        bonusOnce.forEach(frame -> {
+            frame.addBonus(nbPin);
+        });
+        bonusOnce = bonusTwice;
+        bonusTwice.forEach(frame -> {
+            frame.addBonus(nbPin);
+        });
+        bonusTwice= new ArrayList<>();
     }
 
     public int score() {
