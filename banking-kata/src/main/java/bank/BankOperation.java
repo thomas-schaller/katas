@@ -6,15 +6,15 @@ import java.time.format.DateTimeFormatter;
 import static bank.Account.COLUMN_SEPARATOR;
 
 public class BankOperation {
-    int amount=0;
-    int finalBalance=0;
-    LocalDate dateOperation;
-    private static final DateTimeFormatter DATE_FORMATER =  DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    BankOperation(int amount,int finalBalance)
-    {
-        this.amount=amount;
-        this.finalBalance=finalBalance;
+    public static final DateTimeFormatter DATE_FORMATER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    int amount = 0;
+    int finalBalance = 0;
+    LocalDate dateOperation;
+
+    BankOperation(int amount, int finalBalance) {
+        this.amount = amount;
+        this.finalBalance = finalBalance;
         dateOperation = LocalDate.now();
     }
 
@@ -26,14 +26,12 @@ public class BankOperation {
         return dateOperation;
     }
 
-    public String printStatement()
-    {
-        String operationType ="+";
-        if (amount < 0)
-        {
-            operationType ="";
+    public String printStatement() {
+        String operationType = "+";
+        if (amount < 0) {
+            operationType = "";
         }
-        return dateOperation.format(DATE_FORMATER)+COLUMN_SEPARATOR+operationType+amount+COLUMN_SEPARATOR+finalBalance;
+        return dateOperation.format(DATE_FORMATER) + COLUMN_SEPARATOR + operationType + amount + COLUMN_SEPARATOR + finalBalance;
 
     }
 }
