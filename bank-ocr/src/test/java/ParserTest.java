@@ -27,4 +27,15 @@ public class ParserTest {
         var fileContent = Files.readString(Path.of(this.getClass().getResource("/twos.txt").toURI()));
         Assert.assertEquals("222222222", parser.parse(fileContent));
     }
+
+    @Test
+    public void shouldParse3() throws URISyntaxException, IOException {
+        var fileContent = Files.readString(Path.of(this.getClass().getResource("/three.txt").toURI()));
+        Assert.assertEquals("333333333", parser.parse(fileContent));
+    }
+    @Test
+    public void shouldParse123456789() throws URISyntaxException, IOException {
+        var fileContent = Files.readString(Path.of(this.getClass().getResource("/123456789.txt").toURI()));
+        Assert.assertEquals("123456789", parser.parse(fileContent));
+    }
 }

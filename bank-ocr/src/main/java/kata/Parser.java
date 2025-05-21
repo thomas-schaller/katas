@@ -8,6 +8,39 @@ import java.util.StringTokenizer;
 public class Parser {
 
     public final static String END_OF_LINE = "\n";
+    public final static String[] NOMBRE_EN_PIPE = {
+            " _ "
+                    + "| |"
+                    + "|_|",
+            "   "
+                    + "  |"
+                    + "  |",
+            " _ "
+                    + " _|"
+                    + "|_ ",
+            " _ " +
+                    " _|" +
+                    " _|",
+            "   " +
+                    "|_|" +
+                    "  |",
+            " _ " +
+                    "|_ " +
+                    " _|",
+            " _ " +
+                    "|_ " +
+                    "|_|",
+            " _ " +
+                    "  |" +
+                    "  |",
+            " _ " +
+                    "|_|" +
+                    "|_|",
+            " _ " +
+                    "|_|" +
+                    " _|"
+    };
+
 
     public String parse(String text) {
         StringBuilder accountNumber = new StringBuilder();
@@ -20,14 +53,14 @@ public class Parser {
     }
 
     private String parseCharacter(String characterToAnalyse) {
-        if (zero().equals(characterToAnalyse)) {
-            return "0";
-        } else if (one().equals(characterToAnalyse)) {
-            return "1";
-        } else {
-            return "2";
+        for (int nombre=0;nombre<10;nombre++)
+        {
+            if (NOMBRE_EN_PIPE[nombre].equals(characterToAnalyse))
+            {
+                return Integer.toString(nombre);
+            }
         }
-
+        return "?";
 
     }
 
@@ -58,23 +91,5 @@ public class Parser {
         }
         ;
         return String.join(END_OF_LINE, following);
-    }
-
-    private String zero() {
-        return " _ "
-                + "| |"
-                + "|_|";
-    }
-
-    private String one() {
-        return "   "
-                + "  |"
-                + "  |";
-    }
-
-    private String two() {
-        return "___"
-                + " _|"
-                + "|__";
     }
 }
