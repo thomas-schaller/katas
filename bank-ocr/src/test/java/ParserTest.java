@@ -21,4 +21,10 @@ public class ParserTest {
         var fileContent = Files.readString(Path.of(this.getClass().getResource("/ones.txt").toURI()));
         Assert.assertEquals("111111111", parser.parse(fileContent));
     }
+
+    @Test
+    public void shouldParse2() throws URISyntaxException, IOException {
+        var fileContent = Files.readString(Path.of(this.getClass().getResource("/twos.txt").toURI()));
+        Assert.assertEquals("222222222", parser.parse(fileContent));
+    }
 }
