@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 public class Parser {
 
     public final static String END_OF_LINE = "\n";
+    public final static String ERROR_STATUS = "ERR";
     public final static String[] NOMBRE_EN_PIPE = {
             " _ "
                     + "| |"
@@ -53,15 +54,22 @@ public class Parser {
     }
 
     private String parseCharacter(String characterToAnalyse) {
-        for (int nombre=0;nombre<10;nombre++)
-        {
-            if (NOMBRE_EN_PIPE[nombre].equals(characterToAnalyse))
-            {
+        for (int nombre = 0; nombre < 10; nombre++) {
+            if (NOMBRE_EN_PIPE[nombre].equals(characterToAnalyse)) {
                 return Integer.toString(nombre);
             }
         }
         return "?";
 
+    }
+
+    public int checksum(String accountNumber) {
+        int result = 0;
+        for (int multiplier = 9; multiplier > 0; multiplier--) {
+            int number = Integer.parseInt(accountNumber.substring(9 - multiplier, 9 - multiplier + 1)) * multiplier;
+            result += number;
+        }
+        return result;
     }
 
     /**
@@ -91,5 +99,27 @@ public class Parser {
         }
         ;
         return String.join(END_OF_LINE, following);
+    }
+
+    public boolean isValidAccount(String number) {
+        return !number.contains("?") && (checksum(number) % 11) == 0;
+
+    }
+
+    public String writeLineOut(String number) {
+        String result = number;
+        if (!isValidAccount(number)) {
+            if (number.contains("?")) {
+                result += " " + "ILL";
+            } else {
+                result += " " + ERROR_STATUS;
+            }
+        }
+        return result;
+    }
+
+    public String writeLineFromInput(String text) {
+        String accountNumber = parse(text);
+        return writeLineOut(accountNumber);
     }
 }
