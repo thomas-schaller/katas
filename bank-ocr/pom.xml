@@ -15,6 +15,7 @@
     </properties>
     <dependencies>
 
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -54,6 +55,21 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.19.5</version>
+                <configuration>
+                    <!-- no longer required -->
+                    <targetClasses>
+                        <param>kata*</param>
+                    </targetClasses>
+                    <!-- no longer required -->
+                    <targetTests>
+                        <param>kata*</param>
+                    </targetTests>
                 </configuration>
             </plugin>
 
